@@ -1,0 +1,4 @@
+explainer
+=========
+
+Explainer player component
