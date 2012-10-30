@@ -1,0 +1,27 @@
+{
+  "name": "explainer",
+  "version": "0.0.2",
+  "license": "MIT",
+  "author": "FT Interactive <team.interactive@ft.com>",
+  "contributors": [
+    {
+      "name": "Luke Kavanagh",
+      "email": "luke.kavanagh@ft.com"
+    }
+  ],
+  "homepage": "https://github.com/ft-interactive/explainer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ft-interactive/explainer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ft-interactive/explainer/issues"
+  },
+  "dependencies": {
+    "grunt-contrib": "0.3.0",
+    "grunt-bump": "0.0.1"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  }
+}
