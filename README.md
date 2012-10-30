@@ -44,4 +44,13 @@ We use the following libs and tools.
 
 
 **Install Grunt**
-	$npm install -g grunt grunt-contrib
+	
+	$ npm install -g grunt grunt-contrib
+
+**Create a distribution package**
+	
+	$ cd explainer; grunt dist
+ 
+**Create a release package**
+
+	$cd explainer; grunt release
