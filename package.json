@@ -1,6 +1,6 @@
 {
   "name": "explainer",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "license": "MIT",
   "author": "FT Interactive <team.interactive@ft.com>",
   "contributors": [
@@ -17,11 +17,14 @@
   "bugs": {
     "url": "https://github.com/ft-interactive/explainer/issues"
   },
-  "dependencies": {
+  "devDependencies": {
+    "grunt":">=0.3.7",
     "grunt-contrib": "0.3.0",
-    "grunt-bump": "0.0.1"
+    "grunt-bump": "0.0.1",
+    "grunt-ftp-deploy": "0.0.1"
   },
   "engines": {
     "node": ">= 0.8.0"
-  }
+  },
+  "private": true
 }

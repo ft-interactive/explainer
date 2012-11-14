@@ -20,35 +20,43 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: ['jquery.jplayer.js', '<%= pkg.name %>.js'],
-        dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
+        dest: 'dist/<%= pkg.version %>/<%= pkg.name %>-<%= pkg.version %>.js'
+      }
+    },
+    copy: {
+      dist:{
+        files: {
+          "dist/<%= pkg.version %>/font/": "font/**",
+          "dist/<%= pkg.version %>/Jplayer.swf": "Jplayer.swf"
+        }
       }
     },
     min: {
       dist: {
         src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-        dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.min.js'
+        dest: 'dist/<%= pkg.version %>/<%= pkg.name %>-<%= pkg.version %>.min.js'
       }
     },
     mincss: {
       dist: {
         src: ['*.css'],
-        dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.min.css'
+        dest: 'dist/<%= pkg.version %>/<%= pkg.name %>-<%= pkg.version %>.min.css'
       }
     },
     compress: {
       zip: {
         files : {
-          "dist/<%= pkg.name %>-<%= pkg.version %>.zip": ["dist/*.min.js","dist/*.min.css", "./*.swf", "./font/*"]
+          "dist/<%= pkg.name %>-<%= pkg.version %>.zip": ["dist/<%= pkg.version %>/**"]
         },
         options: {
           flatten:false,
-          basePath:'dist'
+          basePath:'dist/<%= pkg.version %>'
         }
       }
     },
     watch: {
-      files: '<config:lint.files>',
-      tasks: 'lint qunit'
+      files: '*',
+      tasks: ['default']
     },
     jshint: {
       options: {
@@ -70,22 +78,29 @@ module.exports = function(grunt) {
     },
     uglify: {
       noCopyright:false
+    },
+    'ftp-deploy': {
+      build: {
+        auth: {
+          host: 'interactive.ftdata.co.uk',
+          port: 21,
+          user: 'ftcointeractive'
+        },
+        src: 'dist/<%= pkg.version %>',
+        dest: '/explainers/'
+      }
     }
   });
-
+  
+  // Extend with extra tasks
   grunt.loadNpmTasks('grunt-contrib');
-  grunt.loadNpmTasks('grunt-bump');
+  grunt.loadNpmTasks('grunt-bump'); // use to bump the version before working or making a distribution package
+  grunt.loadNpmTasks('grunt-ftp-deploy');
 
-  // Default task.
-  grunt.registerTask('default', 'lint qunit concat min mincss');
+  // Define Default task.
+  grunt.registerTask('default', 'lint concat min mincss copy');
 
-  // Distribution
+  // Define Distribution task
   grunt.registerTask('dist', 'default compress');
-
-  // Release new version and push out to ftp 
-  grunt.registerTask('release', 'bump dist');
-  grunt.registerTask('release:patch', 'bump:patch dist');
-  grunt.registerTask('release:minor', 'bump:minor dist');
-  grunt.registerTask('release:major', 'bump:major dist');
 
 };

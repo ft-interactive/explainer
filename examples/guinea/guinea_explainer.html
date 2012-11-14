@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+	<title>Explainer</title>
+	<link rel="stylesheet" type="text/css" href="../../dist/0.0.1/explainer-0.0.1.min.css"/>
+<!--Adobe Edge Runtime-->
+    <script type="text/javascript" charset="utf-8" src="guinea_explainer_edgePreload.js"></script>
+    <style>
+        .edgeLoad-explainer_animation { visibility:hidden; }
+    </style>
+<!--Adobe Edge Runtime End-->
+
+</head>
+<body style="margin:0;padding:0;">
+	
+    <script>
+    	;(function(){
+    		var	isBrowserSupported = !/*@cc_on!@*/0;
+
+    		if ( !isBrowserSupported ) {
+    			document.getElementById('fallback').style.display = 'block';
+    		}
+    		
+    	}());
+    </script>
+    <!--[if lt IE 9]>
+		<div id="fallback" class="fallback fallback-overlay">
+            <div class="fallback-msg">
+                    <p>Sorry, your internet browser does not support
+                    the technology used in this interactive graphic. Most likely you
+                    are using Internet Explorer.</p><p>Please view in another browser such as
+                    Mozilla Firefox, Google Chrome, Safari or Opera.</p>
+            </div>
+    	</div>
+	<![endif]-->
+
+	<div id="Stage" class="explainer_animation">
+	</div>
+</body>
+</html>

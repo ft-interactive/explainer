@@ -1,4 +1,4 @@
-/*
+/* FONTS
 Note these are FT licenced fonts. Only link to these actual files (not copies of them).
 */
 @font-face{
@@ -24,6 +24,12 @@ body{
     padding: 0;
 }
 
+/* Explainer Container */
+.explainer-container{
+    margin:0 auto;
+    width:972px;
+}
+
 .explainer_animation ::selection {
     background: transparent;
 }
@@ -32,11 +38,12 @@ body{
     background: transparent;
 }
 
+/* Control Bar */
 .controls, 
 .controls > div{
-    height:40px;
-    border:1px solid #57534C;
-    border-color:rgba(255,255,255,0.8) rgba(0,0,0,0.2) rgba(0,0,0,0.3) rgba(255,255,255,0.5);
+    height: 40px;
+    border: 1px solid #57534C;
+    border-color: rgba(255,255,255,0.8) rgba(0,0,0,0.2) rgba(0,0,0,0.3) rgba(255,255,255,0.5);
     margin:0;
     padding:0;
     float:left;
@@ -46,10 +53,10 @@ body{
 }
 
 .controls{
-    overflow:hidden;
+    overflow: hidden;
     visibility: hidden;
-    box-sizing:border-box;
-    background-color:#e9decf;
+    box-sizing: border-box;
+    background-color: #e9decf;
     background-image: -webkit-linear-gradient(rgba(255, 241, 224,0),rgba(17, 16, 12,0.14));
     background-image: -moz-linear-gradient(rgba(255, 241, 224,0),rgba(17, 16, 12,0.14));
     background-image: -o-linear-gradient(rgba(255, 241, 224,0),rgba(17, 16, 12,0.14));
@@ -65,6 +72,7 @@ body{
     border-radius: 3px;
     text-shadow: 0 1px 0 #fff;
     line-height: 36px;
+    width:100%;
     text-align: center;
     vertical-align: middle;
     -webkit-touch-callout:  none;
@@ -103,7 +111,7 @@ body{
     -moz-transition: background-color 150ms;
     transition: background-color 150ms;
 }
-.controls p{
+.controls .btn-state{
     display:none;
     width:60px;
     margin:0;
@@ -118,7 +126,7 @@ body{
 
 .controls .scrubber-container{
     border-width:0 1px;
-    width: 280px;
+    width:809px;
     overflow: hidden;
     box-sizing: border-box;
 }
@@ -244,7 +252,7 @@ body{
     display:block
 }
 
-.error .play-pause p{
+.controls .btn-state.error{
     cursor:auto
 }
 
@@ -252,18 +260,44 @@ body{
     display:block
 }
 
-
-.wideContentSection .controls{
-    width:972px
-}
-
-.wideContentSection .controls .scrubber-container{
-    width:809px
-}
-
 .cursor-pointer {cursor:pointer;}
 
-.edgeLoad-explainer_animation { visibility:hidden; }
+
+/* Fallback Display */
+.fallback{
+    position: relative;
+    width: 100%;
+    height: 100;
+}
+
+.fallback-overlay{
+    background-color: #FFF1E0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index:2;
+}
+
+.fallback-msg{
+    font-family: Georgia serif;
+    text-align: left;
+    font-style: italic;
+    font-size: 16px;
+    color: #333;
+    position:absolute;
+    width: 400px;
+    height: 200px;
+    margin-left: -206px;
+    margin-top: -230px;
+    top: 50%;
+    left: 50%;
+    background-color: #e9decf;
+    border: 1px solid #a7a59b;
+    padding: 20px;
+    line-height: 22px;
+}
 
 /*  Font Awesome
     the iconic font designed for use with Twitter Bootstrap

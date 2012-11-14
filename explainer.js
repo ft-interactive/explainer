@@ -7,9 +7,9 @@
     var Composition = Edge.Composition,
         Symbol = Edge.Symbol;
 
-    window.FTi = window.FTi || {};
+    window.IG = window.IG || {};
 
-    FTi.Explainer = function Explainer(elementId, compId, media) {
+    IG.Explainer = function Explainer(elementId, compId, media) {
 
         var animationSelector = '#' + elementId,
 
@@ -23,22 +23,22 @@
 
             audioLength = 0,
 
-            controlsHTML = '<div id="'+ controlsId +'" class="controls">\
-                <div class="play-pause">\
-                    <p class="play"><i class="icon-play icon-large"></i></p>\
-                    <p class="pause"><i class="icon-pause icon-large"></i></p>\
-                    <p class="loading"><i class="icon-refresh icon-large"></i></p>\
-                    <p class="error"><i class="icon-exclamation-sign icon-large"></i></p>\
-                </div>\
-                <div class="scrubber-container"><div class="scrubber">\
-                    <div class="progress"></div>\
-                    <div class="loaded"></div>\
-                </div></div>\
-                <div class="time">\
-                    <em class="played">0:00</em> / <strong class="duration">3:00</strong>\
-                </div>\
-                <div class="error-message"></div>\
-            </div>',
+            controlsHTML = '<div id="'+ controlsId +'" class="controls">' +
+                '<div class="play-pause">' +
+                    '<p class="play btn-state"><i class="icon-play icon-large"></i></p>' +
+                    '<p class="pause btn-state"><i class="icon-pause icon-large"></i></p>' +
+                    '<p class="loading btn-state"><i class="icon-refresh icon-large"></i></p>' +
+                    '<p class="error btn-state"><i class="icon-exclamation-sign icon-large"></i></p>' +
+                '</div>' +
+                '<div class="scrubber-container"><div class="scrubber">' +
+                    '<div class="progress"></div>' +
+                    '<div class="loaded"></div>' +
+                '</div></div>' +
+                '<div class="time">' +
+                    '<em class="played">0:00</em> / <strong class="duration">3:00</strong>' +
+                '</div>' +
+                '<div class="error-message"></div>' +
+            '</div>',
 
             audioContainerHTML = '<div id="'+ audioId + '"></div>',
 
@@ -46,11 +46,29 @@
 
             $audio = $( audioContainerHTML );
 
-
+        $animation.wrap('<div class="explainer-container" />');
 
         $controls.insertAfter( $animation );
 
         $audio.insertAfter( $controls );
+
+        var supplied = [];
+
+        if (media.mp3) {
+            supplied.push('mp3');
+        }
+
+        if (media.oga) {
+            supplied.push('oga');
+        }
+
+        supplied = supplied.join(',');
+
+        var swfPath = './';
+
+        if (media.swf) {
+            swfPath = media.swf;
+        }
 
 
         $audio.jPlayer({
@@ -78,9 +96,9 @@
                     });
                 }
             },
-            swfPath: 'scripts',
+            swfPath: swfPath,
             solution:'html, flash',
-            supplied:"mp3,oga",
+            supplied: supplied,
             preload:'auto',
             wmode:'window',
             cssSelectorAncestor:'#' + controlsId,
@@ -111,15 +129,7 @@
             loadstart: setAudioDuration
         });
 
-        setStage( Edge.getComposition(compId) );
-
-        // If composition still loading the stage won't be set yet
-        // so need to wait to set the stage
-        if (!stage) {
-            Symbol.bindElementAction(compId, 'stage', 'document', 'compositionReady', function( sym, e ) {
-                setStage( sym.getComposition() );
-            });
-        }
+        setStage( compId );
 
         Symbol.bindElementAction(compId, 'stage', animationSelector, 'click', function clickToStart( sym, e ) {
 
@@ -139,13 +149,20 @@
             audioLength = evt.jPlayer.status.duration;
         }
 
-        function setStage( composition ) {
-            var oldStage = stage;
-            stage = composition && composition.getStage();
+        function onStageAvailable() {
+            $controls.css( 'visibility', 'visible' );
+            $animation.addClass( 'cursor-pointer' );
+            stage = Edge.getComposition(compId).getStage();
+        }
 
-            if ( !oldStage && stage ) {
-                $controls.css( 'visibility', 'visible' );
-                $animation.addClass( 'cursor-pointer' );
+        function setStage( compId ) {
+            var _comp = Edge.getComposition(compId),
+                _stage = _comp && _comp.getStage();
+
+            if (_stage && _comp.compReadyCalled) {
+                onStageAvailable();
+            } else {
+                Symbol.bindElementAction(compId, 'stage', 'document', 'compositionReady', onStageAvailable);
             }
         }
 
@@ -167,6 +184,8 @@
             }
         }
 
+        //fdsfdsfds
+
         function stopStage( evt ) {
             logEvent( evt );
             $animation.addClass( 'cursor-pointer' );
@@ -186,6 +205,21 @@
 
             $bars.attr( 'title',  time );
 
+        });
+    };
+
+    /* 
+    Convenience method for when the things are hosted on the FTP
+    */
+    IG.Explainer.create = function(compId, audioName, version){
+        $(function(){
+                
+            var explainer = new IG.Explainer('Stage', compId, {
+                mp3: audioName + '.mp3',
+                oga: audioName + '.oga',
+                swf:'../lib/' +  version + '/'
+            });
+                    
         });
     };
 
