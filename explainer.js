@@ -9,7 +9,7 @@
 
     window.IG = window.IG || {};
 
-    IG.Explainer = function Explainer(elementId, compId, media) {
+    IG.Explainer = function Explainer(elementId, compId, media, size) {
 
         var animationSelector = '#' + elementId,
 
@@ -46,7 +46,17 @@
 
             $audio = $( audioContainerHTML );
 
-        $animation.wrap('<div class="explainer-container" />');
+        var containerClass = 'explainer-container';
+
+        if ( typeof size === 'string' ) {
+            if ( size.toLowerCase() === 'narrow' ) {
+                containerClass += ' narrow';
+            }
+        }
+
+        $animation.wrap('<div class="' + containerClass + '" />');
+
+        
 
         $controls.insertAfter( $animation );
 
@@ -200,7 +210,7 @@
             var time = '';
             
             if ( audioLength ) {
-                time = $.jPlayer.convertTime( mouseEventToSeconds(evt) ).toString().replace( /^0|/,'' )
+                time = $.jPlayer.convertTime( mouseEventToSeconds(evt) ).toString().replace( /^0|/,'' );
             }
 
             $bars.attr( 'title',  time );
@@ -208,17 +218,18 @@
         });
     };
 
-    /* 
+    /*
     Convenience method for when the things are hosted on the FTP
     */
-    IG.Explainer.create = function(compId, audioName, version){
+    IG.Explainer.create = function( compId, audioName, version, size ) {
+
         $(function(){
                 
             var explainer = new IG.Explainer('Stage', compId, {
                 mp3: audioName + '.mp3',
                 oga: audioName + '.oga',
                 swf:'../lib/' +  version + '/'
-            });
+            }, size);
                     
         });
     };

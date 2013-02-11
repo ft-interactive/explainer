@@ -26,8 +26,8 @@ body{
 
 /* Explainer Container */
 .explainer-container{
-    margin:0 auto;
-    width:972px;
+    margin: 0 auto;
+    width: 972px;
 }
 
 .explainer_animation ::selection {
@@ -297,6 +297,16 @@ body{
     border: 1px solid #a7a59b;
     padding: 20px;
     line-height: 22px;
+}
+
+
+/* Narrow Width */
+.explainer-container.narrow{
+    width: 600px;
+}
+
+.explainer-container.narrow .scrubber-container{
+    width: 438px;
 }
 
 /*  Font Awesome
