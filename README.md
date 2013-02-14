@@ -67,7 +67,7 @@ You can export as an 'ogg' file and then manually change the the file extension 
 **Narrow**
 
 * Stage Width = `600px`
-* Stage Height = `480px`
+* Stage Height = `400px`
 
 **All**
 
@@ -94,7 +94,7 @@ You can export as an 'ogg' file and then manually change the the file extension 
 
 ```html
 
-    <iframe src="http://interactive.ftdata.co.uk/path/to/explainer" width="600px" height="530px"></iframe>
+    <iframe src="http://interactive.ftdata.co.uk/path/to/explainer" width="600px" height="450px"></iframe>
 
 ```
 
